@@ -1,0 +1,84 @@
+ServerAliveInterval	300
+ForwardAgent		yes
+ForwardX11		yes
+GSSAPIAuthentication	no
+Compression		yes
+AddressFamily		inet
+
+Host gfdl_bastion
+	HostName	ssh.gfdl.noaa.gov
+	User		Tyler.Boswick
+	Port		22
+	LocalForward	1337 tdb.gfdl.noaa.gov:22
+	LocalForward	5905 tdb.gfdl.noaa.gov:14034
+
+Host gfdl_tdb
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		1337
+	DynamicForward	127.0.0.1:1080
+
+Host princeton_bastion
+	HostName	mgmt.princeton.rdhpcs.noaa.gov
+	User		Tyler.Boswick
+	Port		2122
+	LocalForward	38134 localhost:38134
+
+Host boulder_bastion
+	HostName	mgmt.boulder.rdhpcs.noaa.gov
+	User		Tyler.Boswick
+	Port		2122
+	LocalForward	19434 localhost:19434
+
+Host princeton
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		38134
+	LocalForward	4133 jump1.fairmont.rdhpcs.noaa.gov:22
+	LocalForward	4134 jump2.fairmont.rdhpcs.noaa.gov:22
+	LocalForward    4127 ildap1.princeton.rdhpcs.noaa.gov:636
+	LocalForward    4129 ildap1.princeton.rdhpcs.noaa.gov:389
+	DynamicForward	127.0.0.1:1081
+
+Host fairmont
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		4133
+	LocalForward	4128 gitlab.rdhpcs.noaa.gov:22
+	DynamicForward  127.0.0.1:1082
+
+Host fairmont2
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		4134
+	DynamicForward	127.0.0.1:1084
+
+Host boulder
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		19434
+	LocalForward	4130 b-002.boulder.rdhpcs.noaa.gov:22
+	DynamicForward	127.0.0.1:1083
+
+Host boulder2
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		4130
+	DynamicForward	127.0.0.1:1085
+
+Host analysis
+	HostName	analysis-rsa.princeton.rdhpcs.noaa.gov
+	User		Tyler.Boswick	
+	Port		22
+	LocalForward	48134 ppam1.princeton.rdhpcs.noaa.gov:48134
+
+Host ppam1
+	HostName	localhost
+	User		Tyler.Boswick
+	Port		48134
+
+Host gitlab
+	HostName	localhost
+	User		Tyler.Boswick
+	IdentityFile	/home/tyler/.ssh/id_rsa
+	Port		4128

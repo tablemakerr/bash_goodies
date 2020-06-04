@@ -1,0 +1,34 @@
+# Prereq:
+
+## Enable CentOS 8 "Power Tools"
+yum install dnf-plugins-core
+yum config-manager --set-enabled PowerTools
+
+## Packages:
+gcc make libgcrypt libgcrypt-devel libgpg-error libgpg-error-devel autoconf automake libtool libpurple libpurple-devel pidgin pidgin-devel intltool glib2 glib2-devel gtk2 gtk2-devel gtk3 gtk3-devel
+
+
+# Download:
+https://github.com/off-the-record/libotr	# libotr
+https://otr.cypherpunks.ca/pidgin-otr-4.0.2.tar.gz	# pidgin-otr
+
+#Installation:
+
+## libotr first
+unzip $ZIPFILE
+cd $DIRECTORY
+./configure
+make
+sudo make install
+
+# pidgin-otr
+tar zxvf $TARBALL
+cd $DIRECTORY
+./bootstrap
+./configure
+make
+sudo make install
+
+# Finalize:
+cp /usr/local/lib/pidgin/pidgin-otr.so ~/.purple/plugins/
+sudo ln -s /usr/local/lib/libotr.so.5 /usr/lib64/libotr.so.5

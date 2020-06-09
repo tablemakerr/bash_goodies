@@ -1,0 +1,17 @@
+#!/bin/bash      
+if [ ! -d "/root/bench" ]; then
+        mkdir /root/bench
+fi
+
+cd /root/bench
+
+# Test write                                                                           
+WRITE=$(dd if=/dev/zero of=diskbench bs=1M count=1024 conv=fdatasync 2>&1 |  grep copied |  cut -d' ' -f6-)
+
+# Test read                                                                              
+echo 3 | sudo tee /proc/sys/vm/drop_caches 2>&1 > /dev/null
+READ=$(dd if=diskbench of=/dev/null bs=1M count=1024 2>&1| grep copied | cut -d' ' -f6-)
+
+# Clear test file                                                                        
+rm /root/bench/diskbench
+echo "Read: $READ"                                                                       echo "Write $WRITE" 
